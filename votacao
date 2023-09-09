@@ -24,7 +24,7 @@ while (true) {
         "| 6. Anular Voto                                       |\n"+
         "--------------------------------------------------------\n"
         );
-    tabela = readline.questionInt("Digite o numero do seu candidato! ")
+    tabela = readline.questionInt("Digite o numero do seu candidato! ") //pergunta ao usuario em quem ele quer votar.
 
     switch (tabela) {
         case 1:
@@ -62,6 +62,7 @@ while (true) {
             console.log("Você votou em Branco!")
             break;
         case 999888:
+//comparação dos dados imputados pelo usuario, para informar quem venceu as eleições ou se ouve empate.
             console.log(
                 "--------------------------------------------------------\n"+
                 "| ********** ---- VOTO SINDICO 2023 ---- ***********    \n"+
@@ -107,7 +108,7 @@ while (true) {
             console.log(`Os candidatos Alano Cezar e Beltrano Souza empataram!`)
         } else if(candiQuatro == candiTres){
             console.log(`Os candidatos Alano Cezar e Fulano Amaral empataram!`)
-        }
+        }//apresentação dos votos e porcentagens
         console.log("Votação encerrada com um total de " + eleitores +" votos sendo " +((eleitores * 100)/eleitores).toFixed(2)+" % dos votos.")
         console.log("O candidato Ciclano Bezerra teve " + candiUm +" votos sendo " +((candiUm * 100)/eleitores).toFixed(2)+" % dos votos.")
         console.log("O candidato Beltrano Souza teve " + candiDois +" votos sendo " +((candiDois * 100)/eleitores).toFixed(2)+" % dos votos.")
@@ -116,12 +117,12 @@ while (true) {
         console.log(`Tivemos ${votosNulos} votos nulos com ${((votosNulos * 100)/eleitores).toFixed(2)}% e ${votosBrancos} votos em branco com ${((votosBrancos * 100)/eleitores).toFixed(2)}%
         Votação encerrada! Obrigado.`)
         
-        readline.question("Pressione ENTER para sair.");
-        process.exit(0);
+        readline.question("Pressione ENTER para sair."); //mensagem para sair do looping
+        process.exit(0);//sai do looping
             break;
         default:
         console.log("Candidato não encontrado")
             break;
     }
-    readline.question("Pressione ENTER para continuar.")
+    readline.question("Pressione ENTER para continuar.") 
 }
