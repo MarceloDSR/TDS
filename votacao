@@ -62,47 +62,66 @@ while (true) {
             console.log("Você votou em Branco!")
             break;
         case 999888:
-            console.log(`A votação terminou: O candidato Ciclano Bezarra teve ${candiUm} votos!
-            O candidato Beltrano Souza teve ${candiDois} votos!
-            O candidato Fulano Amaral teve ${candiTres} votos!
-            o candidato Alano Cezar teve ${candiQuatro} votos!
-            Tivemos ${votosNulos} votos nulos com ${((votosNulos * 100)/eleitores).toFixed(2)}% e ${votosBrancos} votos em branco com ${((votosBrancos * 100)/eleitores).toFixed(2)}%
-            Votação encerrada! Obrigado.`)
-        
+            console.log(
+                "--------------------------------------------------------\n"+
+                "| ********** ---- VOTO SINDICO 2023 ---- ***********    \n"+
+                "| ****            APURAÇÃO DOS VOTOS            ****    \n"+
+                "| 1. Ciclano Bezerra " + candiUm +" votos" +"           \n"+
+                "| 2. Beltrano Souza " + candiDois +" votos" +"          \n"+
+                "| 3. Fulano Amaral " + candiTres +" votos" +"           \n"+
+                "| 4. Alano Cezar " + candiQuatro +" votos" +"           \n"+
+                "| 5. Voto em Branco " + votosBrancos +" votos" +"       \n"+
+                "| 6. Votos Nulos " + votosNulos +" votos" +"            \n"+
+                "--------------------------------------------------------\n"
+                );
+
         if (candiUm > candiDois && candiUm > candiTres && candiUm > candiQuatro) {
-            console.log(`O candidato Ciclano Bezarra venceu a eleição com ${candiUm} votos validos!`)
+            console.log(`O candidato Ciclano Bezerra venceu a eleição com ${candiUm} votos validos!`)
         } else if(candiDois > candiUm && candiDois > candiTres && candiQuatro){
             console.log(`O candidato Beltrano Souza venceu a eleição com ${candiDois} votos validos!`)
         } else if(candiTres > candiUm && candiTres > candiDois && candiTres > candiQuatro){
             console.log(`O candidato Fulano Amaral venceu a eleição com ${candiTres} votos validos!`)
-        }else if(candiQuatro > candiUm && candiQuatro > candiDois && candiQuatro > candiTres){
+        } else if(candiQuatro > candiUm && candiQuatro > candiDois && candiQuatro > candiTres){
             console.log(`O candidato Alano Cezar venceu a eleição com ${candiQuatro} votos validos!`)
-        }
-
-            if (candiUm == candiDois) {
-            console.log(`Os candidatos ${candiUm} e ${candiDois} empataram!`)
+        } else if (candiUm == candiDois) {
+            console.log(`Os candidatos Ciclano Bezerra e Beltrano Souza empataram!`)
         } else if(candiUm == candiTres){
-            console.log(`Os candidatos ${candiUm} e ${candiTres} empataram!`)
+            console.log(`Os candidatos Ciclano Bezerra e Fulano Amaral empataram!`)
         } else if(candiUm == candiQuatro){
-            console.log(`Os candidatos ${candiUm} e ${candiQuatro} empataram!`)
+            console.log(`Os candidatos Ciclano Bezerra e Alano Cezar empataram!`)
         } else if(candiDois == candiUm){
-            console.log(`Os candidatos ${candiDois} e ${candiUm} empataram!`)
+            console.log(`Os candidatos Beltrano Souza e Ciclano Bezerra empataram!`)
         } else if(candiDois == candiTres){
-            console.log(`Os candidatos ${candiDois} e ${candiTres} empataram!`)
+            console.log(`Os candidatos Beltrano Souza e Fulano Amaral empataram!`)
         } else if(candiDois == candiUm){
-            console.log(`Os candidatos ${candiDois} e ${candiQuatro} empataram!`)
+            console.log(`Os candidatos Beltrano Souza e Alano Cezar empataram!`)
         } else if(candiTres == candiUm){
-            console.log(`Os candidatos ${candiTres} e ${candiUm} empataram!`)
+            console.log(`Os candidatos Fulano Amaral e Ciclano Bezerra empataram!`)
         } else if(candiTres == candiDois){
-            console.log(`Os candidatos ${candiDois} e ${candiDois} empataram!`)
+            console.log(`Os candidatos Fulano Amaral e Beltrano Souza empataram!`)
         } else if(candiTres == candiQuatro){
-            console.log(`Os candidatos ${candiDois} e ${candiQuatro} empataram!`)
-        } else if(candiDois == candiUm){
-            console.log(`Os candidatos ${candiDois} e ${candiUm} empataram!`)
+            console.log(`Os candidatos Fulano Amaral e Alano Cezar empataram!`)
+        } else if(candiQuatro == candiUm){
+            console.log(`Os candidatos Alano Cezar e Ciclano Bezerra empataram!`)
+        } else if(candiQuatro == candiDois){
+            console.log(`Os candidatos Alano Cezar e Beltrano Souza empataram!`)
+        } else if(candiQuatro == candiTres){
+            console.log(`Os candidatos Alano Cezar e Fulano Amaral empataram!`)
         }
+        console.log("Votação encerrada com um total de " + eleitores +" votos sendo " +((eleitores * 100)/eleitores).toFixed(2)+" % dos votos.")
+        console.log("O candidato Ciclano Bezerra teve " + candiUm +" votos sendo " +((candiUm * 100)/eleitores).toFixed(2)+" % dos votos.")
+        console.log("O candidato Beltrano Souza teve " + candiDois +" votos sendo " +((candiDois * 100)/eleitores).toFixed(2)+" % dos votos.")
+        console.log("O candidato Fulano Amaral teve " + candiTres +" votos sendo " +((candiTres* 100)/eleitores).toFixed(2)+" % dos votos.")
+        console.log("O candidato Alano Cezar teve " + candiQuatro +" votos sendo " +((candiQuatro * 100)/eleitores).toFixed(2)+" % dos votos.")
+        console.log(`Tivemos ${votosNulos} votos nulos com ${((votosNulos * 100)/eleitores).toFixed(2)}% e ${votosBrancos} votos em branco com ${((votosBrancos * 100)/eleitores).toFixed(2)}%
+        Votação encerrada! Obrigado.`)
+        
+        readline.question("Pressione ENTER para sair.");
+        process.exit(0);
+            break;
         default:
         console.log("Candidato não encontrado")
             break;
     }
-    readline.question("Pressione ENTER para o proximo voto!")
+    readline.question("Pressione ENTER para continuar.")
 }
