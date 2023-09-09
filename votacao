@@ -1,0 +1,108 @@
+const readline = require("readline-sync")
+//variaveis
+let tabela = 0
+let eleitores = 0
+let votosVali = 0
+let candiUm = 0
+let candiDois = 0
+let candiTres = 0
+let candiQuatro = 0
+let votosNulos = 0
+let votosBrancos = 0
+
+while (true) {
+    console.clear()
+    console.log(
+        "--------------------------------------------------------\n"+
+        "| ********** ---- VOTO SINDICO 2023 ---- ***********   |\n"+
+        "| **** ESCOLHA SEU CANDIDATO DIGITANDO O NUMERO ****   |\n"+
+        "| 1. Ciclano Bezerra                                   |\n"+
+        "| 2. Beltrano Souza                                    |\n"+
+	    "| 3. Fulano Amaral                                     |\n"+
+        "| 4. Alano Cezar                                       |\n"+
+        "| 5. Voto em Branco                                    |\n"+
+        "| 6. Anular Voto                                       |\n"+
+        "--------------------------------------------------------\n"
+        );
+    tabela = readline.questionInt("Digite o numero do seu candidato! ")
+
+    switch (tabela) {
+        case 1:
+            candiUm++
+            eleitores++
+            votosVali++
+            console.log("Você votou no Candidato Ciclano Bezerra!")
+            break;
+        case 2:
+            candiDois++
+            eleitores++
+            votosVali++
+            console.log("Você votou no Candidato Beltrano Souza!")
+            break;
+        case 3:
+            candiTres++
+            eleitores++
+            votosVali++
+            console.log("Você votou no Candidato Fulano Amaral!")
+            break;
+        case 4:
+            candiQuatro++
+            eleitores++
+            votosVali++
+            console.log("Você votou no Candidato Alano Cezar!")
+            break;
+        case 5:
+            votosNulos++
+            eleitores++
+            console.log("Você votou Nulo!")
+            break;
+        case 6:
+            votosBrancos++
+            eleitores++
+            console.log("Você votou em Branco!")
+            break;
+        case 999888:
+            console.log(`A votação terminou: O candidato Ciclano Bezarra teve ${candiUm} votos!
+            O candidato Beltrano Souza teve ${candiDois} votos!
+            O candidato Fulano Amaral teve ${candiTres} votos!
+            o candidato Alano Cezar teve ${candiQuatro} votos!
+            Tivemos ${votosNulos} votos nulos com ${((votosNulos * 100)/eleitores).toFixed(2)}% e ${votosBrancos} votos em branco com ${((votosBrancos * 100)/eleitores).toFixed(2)}%
+            Votação encerrada! Obrigado.`)
+        
+        if (candiUm > candiDois && candiUm > candiTres && candiUm > candiQuatro) {
+            console.log(`O candidato Ciclano Bezarra venceu a eleição com ${candiUm} votos validos!`)
+        } else if(candiDois > candiUm && candiDois > candiTres && candiQuatro){
+            console.log(`O candidato Beltrano Souza venceu a eleição com ${candiDois} votos validos!`)
+        } else if(candiTres > candiUm && candiTres > candiDois && candiTres > candiQuatro){
+            console.log(`O candidato Fulano Amaral venceu a eleição com ${candiTres} votos validos!`)
+        }else if(candiQuatro > candiUm && candiQuatro > candiDois && candiQuatro > candiTres){
+            console.log(`O candidato Alano Cezar venceu a eleição com ${candiQuatro} votos validos!`)
+        }
+
+            if (candiUm == candiDois) {
+            console.log(`Os candidatos ${candiUm} e ${candiDois} empataram!`)
+        } else if(candiUm == candiTres){
+            console.log(`Os candidatos ${candiUm} e ${candiTres} empataram!`)
+        } else if(candiUm == candiQuatro){
+            console.log(`Os candidatos ${candiUm} e ${candiQuatro} empataram!`)
+        } else if(candiDois == candiUm){
+            console.log(`Os candidatos ${candiDois} e ${candiUm} empataram!`)
+        } else if(candiDois == candiTres){
+            console.log(`Os candidatos ${candiDois} e ${candiTres} empataram!`)
+        } else if(candiDois == candiUm){
+            console.log(`Os candidatos ${candiDois} e ${candiQuatro} empataram!`)
+        } else if(candiTres == candiUm){
+            console.log(`Os candidatos ${candiTres} e ${candiUm} empataram!`)
+        } else if(candiTres == candiDois){
+            console.log(`Os candidatos ${candiDois} e ${candiDois} empataram!`)
+        } else if(candiTres == candiQuatro){
+            console.log(`Os candidatos ${candiDois} e ${candiQuatro} empataram!`)
+        } else if(candiDois == candiUm){
+            console.log(`Os candidatos ${candiDois} e ${candiUm} empataram!`)
+        }
+        default:
+        console.log("Candidato não encontrado")
+            break;
+    }
+    readline.question("Pressione ENTER para o proximo voto!")
+}
