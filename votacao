@@ -110,11 +110,11 @@ while (true) {
             console.log(`Os candidatos Alano Cezar e Fulano Amaral empataram!`)
         }//apresentação dos votos e porcentagens
         console.log("Votação encerrada com um total de " + eleitores +" votos sendo " +((eleitores * 100)/eleitores).toFixed(2)+" % dos votos.")
-        console.log("O candidato Ciclano Bezerra teve " + candiUm +" votos sendo " +((candiUm * 100)/eleitores).toFixed(2)+" % dos votos.")
-        console.log("O candidato Beltrano Souza teve " + candiDois +" votos sendo " +((candiDois * 100)/eleitores).toFixed(2)+" % dos votos.")
-        console.log("O candidato Fulano Amaral teve " + candiTres +" votos sendo " +((candiTres* 100)/eleitores).toFixed(2)+" % dos votos.")
-        console.log("O candidato Alano Cezar teve " + candiQuatro +" votos sendo " +((candiQuatro * 100)/eleitores).toFixed(2)+" % dos votos.")
-        console.log(`Tivemos ${votosNulos} votos nulos com ${((votosNulos * 100)/eleitores).toFixed(2)}% e ${votosBrancos} votos em branco com ${((votosBrancos * 100)/eleitores).toFixed(2)}%
+        console.log("O candidato Ciclano Bezerra teve " + candiUm +" votos sendo " +((candiUm * 100)/votosVali).toFixed(2)+" % dos votos.")
+        console.log("O candidato Beltrano Souza teve " + candiDois +" votos sendo " +((candiDois * 100)/votosVali).toFixed(2)+" % dos votos.")
+        console.log("O candidato Fulano Amaral teve " + candiTres +" votos sendo " +((candiTres* 100)/votosVali).toFixed(2)+" % dos votos.")
+        console.log("O candidato Alano Cezar teve " + candiQuatro +" votos sendo " +((candiQuatro * 100)/votosVali).toFixed(2)+" % dos votos.")
+        console.log(`Tivemos ${votosNulos} votos nulos com ${((votosNulos * 100)/votosVali).toFixed(2)}% e ${votosBrancos} votos em branco com ${((votosBrancos * 100)/votosVali).toFixed(2)}%
         Votação encerrada! Obrigado.`)
         
         readline.question("Pressione ENTER para sair."); //mensagem para sair do looping
