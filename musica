@@ -1,0 +1,46 @@
+const { transpose, contact } = require("mathjs")
+
+let letra = "o sapo nao lava o pe, não lava porque nao quer"
+let novaLetraA = ""
+let novaLetraE = ""
+let novaLetraI = ""
+let novaLetraO = ""
+let novaLetraU = ""
+
+
+for (let i = 0; i < letra.length; i++) {
+    let letraA = letra.charAt(i)
+    if (letraA == 'o' || letraA == 'e') {
+        letraA = 'a'
+    }
+    novaLetraA = concat(novaLetraA, letraA)
+
+    let letraE = letra.charAt(i)
+    if (letraE == 'o' || letraE == 'e') {
+        letraE = 'e'
+    }
+    novaLetraE = concat(novaLetraE, letraE)
+
+    let letraI = letra.charAt(i)
+    if (letraI == 'o' || letraI == 'e') {
+        letraI = 'i'
+    }
+    novaLetraI = concat(novaLetraI, letraI)
+
+    let letraO = letra.charAt(i)
+    if (letraO == 'o' || letraO == 'e') {
+        letraO = 'o'
+    }
+    novaLetraO = concat(novaLetra, letraO)
+
+    let letra = nova.charAt(i)
+    if (letraU == 'o' || letraU == 'e') {
+        letraU = 'u'
+    }
+    novaLetraU = concat(novaLetra, letraU)
+}
+console.log(novaLetraA)
+console.log(novaLetraE)
+console.log(novaLetraI)
+console.log(novaLetraO)
+console.log(novaLetraU)
