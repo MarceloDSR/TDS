@@ -1,0 +1,61 @@
+let tentativas = 0;
+
+while (tentativas < 5) {
+    const senha = prompt("Digite sua senha:");
+
+    // Verificar se a senha atende aos requisitos
+    let senhaValida = true;
+
+    if (senha.length < 8 || senha.length > 15) {
+        console.log("A senha deve conter de 8 a 15 caracteres.");
+        senhaValida = false;
+    }
+
+    let possuiCaractereEspecial = false;
+    for (let i = 0; i < senha.length; i++) {
+        if (senha[i] === '@' || senha[i] === '#' || senha[i] === '!') {
+            possuiCaractereEspecial = true;
+            break;
+        }
+    }
+    if (!possuiCaractereEspecial) {
+        console.log("A senha deve conter um caractere especial (@, #, ou outro).");
+        senhaValida = false;
+    }
+
+    let possuiLetraMaiuscula = false;
+    for (let i = 0; i < senha.length; i++) {
+        if (senha[i] >= 'A' && senha[i] <= 'Z') {
+            possuiLetraMaiuscula = true;
+            break;
+        }
+    }
+    if (!possuiLetraMaiuscula) {
+        console.log("A senha deve conter pelo menos uma letra maiúscula.");
+        senhaValida = false;
+    }
+
+    let possuiDigitoNumerico = false;
+    for (let i = 0; i < senha.length; i++) {
+        if (senha[i] >= '0' && senha[i] <= '9') {
+            possuiDigitoNumerico = true;
+            break;
+        }
+    }
+    if (!possuiDigitoNumerico) {
+        console.log("A senha deve conter pelo menos um dígito numérico.");
+        senhaValida = false;
+    }
+
+    if (senhaValida) {
+        console.log("Parabéns, senha inserida com sucesso!");
+        break; // Senha correta, encerrar o programa
+    } else {
+        tentativas++;
+        console.log(`Tentativas restantes: ${5 - tentativas}`);
+    }
+}
+
+if (tentativas === 5) {
+    console.log("Limite de tentativas excedidas, procure o administrador do sistema.");
+}
