@@ -1,0 +1,42 @@
+const readline = require("readline-sync")
+
+let tentativas = 0
+let senha = "";
+let qtdeMaiuscula
+let qtdeNumeros
+let qtdeMinusculas
+let qtdeEspecial
+let tamanhoSenha
+
+senha = readline.question("Usuario, digite a senha: ");
+
+//Determinar se a senha tem mais que 8 diggitos e menos que 15
+//Determinar se tem letra maiuscula
+//Determinar se tem numero
+//Determinar se tem um caracter especial
+while (tentativas < 5) {
+    
+if(senha.length >=8 && senha.length <=15){
+   tamanhoSenha = true;
+} else{
+    tamanhoSenha = false
+}
+for (let i = 0; i < senha.length; i++) {
+
+if (senha.charAt(i) >= "A" && senha.charAt(i) >= "Z"){
+    qtdeMaiuscula++
+} else if(senha.charAt(i) >= "0" && senha.charAt(i) >= "9"){
+    qtdeNumeros++
+} else if(senha.charAt(i) >= "a" && senha.charAt(i) >= "z") {
+    qtdeMinusculas++
+}else{
+    qtdeEspecial++
+}
+
+if (tamanhoSenha == true && qtdeMaiuscula >=1 && qtdeMaiuscula >=1 && qtdeEspecial >=1) {
+    console.log("senha OK!")
+} else{
+    console.log("Senha incorreta!")
+}
+}
+}
