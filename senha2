@@ -35,8 +35,13 @@ if (senha.charAt(i) >= "A" && senha.charAt(i) >= "Z"){
 
 if (tamanhoSenha == true && qtdeMaiuscula >=1 && qtdeMaiuscula >=1 && qtdeEspecial >=1) {
     console.log("senha OK!")
-} else{
-    console.log("Senha incorreta!")
+} else {
+    tentativas++;
+    console.log(`Tentativas restantes: ${5 - tentativas}`)
+    break;
 }
 }
+}
+if (tentativas === 5) {
+    console.log("Limite de tentativas excedidas, procure o administrador do sistema.");
 }
