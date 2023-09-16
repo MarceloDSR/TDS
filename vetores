@@ -1,0 +1,19 @@
+const readline =require("readline-sync")
+let numeros = []
+let controle = 0
+
+//duas formas de fazer a mesma coisa
+//primeira formas
+for (let i = 0; i < 10; i++) {
+    numeros[i] = readline.question("Digite 10 numeros inteiros: ")
+    
+}
+console.log(numeros)
+
+//segunda forma
+while(controle < 10){
+    numeros.push(readline.question("Digite 10 numeros inteiros: "))
+    controle++
+
+}
+console.log(numeros)
