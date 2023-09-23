@@ -1,0 +1,30 @@
+/*Função para determinar a multa de um motorista!
+Implemente uma função para determinar o valor da multa 
+considere a velocidade capturada pelo controlar elêtronico (em km/h)
+
+A REGRA ESTABELECIDA PELO DENATRAN CONSIDERA:
+até 20% acima do limite permitido: R$ 130,16 e 4 pontos na CNH
+De 20% até 50% acima do limite permitido: R$ 195,23 e 5 pontos na CNH
+Acima de 50% do limite permitido: R$ 880,41 e 7 pontos na CNH
+Acima de 100% - carteira retida!
+*/
+const readline = require("readline-sync")
+const velocidadeMaxima = 60;
+
+function multas(velocidade) {
+    const porcentagemExcedida = ((velocidade - limitePermitido) / limitePermitido) * 100;
+    if (porcentagemExcedida <= 20) {
+        console.log(`Sua velocidade é ${velocidade} execeu 20% da velocidade máxima que é de ${velocidadeMaxima}, Multa de R$ 130,16 e 4 pontos na CNH `)
+    }else if(porcentagemExcedida <= 50){
+        console.log(`Sua velocidade é ${velocidade} km/h você exedeu a velocidade permitida entre 21% até 50% a velocidade máxima permitida é de ${velocidadeMaxima} km/h, R$ 195,23 e 5 pontos na CNH `)
+    }else if(porcentagemExcedida > 50 && porcentagemExcedida <= 99){
+        console.log(`Sua velocidade é ${velocidade} km/h você exedeu a velocidade permitida entre 21% até 50% a velocidade máxima permitida é de ${velocidadeMaxima} km/h, R$ 880,41 e 7 pontos na CNH `)
+    }else{
+        console.log(`Sua velocidade é ${velocidade} km/h você exedeu a velocidade permitida em 100% ou mais, a velocidade máxima permitida é de ${velocidadeMaxima} km/h, carteira retida! `)
+    }
+    return velocidade
+}
+const velocidade = readline.questionInt("Digite a velocidade registrada (em km/h): ");
+const limitePermitido = readline.questionInt("Digite o limite de velocidade permitido (em km/h): ");
+
+multas(velocidade, limitePermitido);
