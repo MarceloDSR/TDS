@@ -1,0 +1,96 @@
+const readline = require("readline-sync")
+let poltrona = []; //variavel vetor
+
+function criaPoltrona(qtdePes, corCadeira, tipoMaterial, tpEncosto, altura) { //classe
+    poltrona.push(//.push empurra os dados dentro das {} para a variavel/vetor poltrona = []
+         {
+        pes: qtdePes,// chave: valor
+        cor: corCadeira,// chave: valor
+        material: tipoMaterial,// chave: valor
+        encosto: tpEncosto,// chave: valor
+        altura: altura,// chave: valor
+
+        }
+    )//fecha poltrona.push
+}//fecha function criaPoltrona
+function relatorio() {
+    console.log("::::::: RELATORIO DE ESTOQUE DE CADEIRAS :::::::")
+    for (let i = 0; i < poltrona.length; i++) {
+        console.log(`Cadeira ${i+1} -> 
+            pes: ${poltrona[i].pes}, 
+            cor: ${poltrona[i].cor},
+            Material: ${poltrona[i].material}, 
+            altura: ${poltrona[i].altura} `);
+    }
+}
+
+
+function excluirPoltrona(corCadeira, tipoMaterial) {
+    let existeCadeira = false;
+    let indexCadeira;
+
+//ALTERNATIVA!
+for (let i = 0; i < poltrona.length; i++) {
+    if ((poltrona[i].cor === corCadeira) && (poltrona[i].material === tipoMaterial)){
+        indexCadeira = i;
+        existeCadeira = true
+        console.log(`Cor e Material encontrados! `)
+        break;
+    }
+}
+
+if (existeCadeira === true) {
+    poltrona.splice(indexCadeira, 1)
+    console.log("Item excluido do banco! :: " + indexCadeira)
+    relatorio()
+}else{
+    console.log("Cadeira não encontrada!")
+}
+}
+
+function letreiro() {
+    console.log("********************************************")
+    console.log("********************************************")
+    console.log("*********  CADASTRO DE CADEIRAS   **********")
+    console.log("********************************************")
+    console.log("********************************************")
+}
+
+function menu() {
+    letreiro()
+    console.log("*** MENU DE ACESSO ***")
+    console.log("1. Cadastrar cadeira")
+    console.log("2. Excluir cadeira")
+    console.log("3. Relatrio de estoque")
+    let opcao = readline.questionInt("Digite a sua opcao: ")
+
+    switch (opcao) {
+        case 1:
+            console.log("Cadastrar Poltrona")
+            let qtdePes = readline.questionInt("indique a quantidade de pes: ")
+            let corCadeira = readline.question("Informe a cor: ")
+            let tipoMaterial = readline.question("Informe o Material: ")
+            let tpEncosto = readline.question("Informe o Encosto: ")
+            let altura = readline.questionFloat("Informe a altura: ")
+
+            criaPoltrona(qtdePes, corCadeira, tipoMaterial, tpEncosto, altura)
+            break;
+        case 2:
+            console.log("Excluir Poltrona")
+            let corCad = readline.question("informe a cor: ")
+            let tipoMat = readline.question("informe o Material: ")
+            excluirPoltrona(corCad, tipoMat)
+        case 3:
+            console.clear()
+            console.log("Gerar relatorio!")
+            relatorio()
+            break;
+        default:
+            console.log("Opcao invalida")
+            break;
+    }
+}
+
+while(true){
+    menu();
+}
