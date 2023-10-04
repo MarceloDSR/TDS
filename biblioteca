@@ -1,0 +1,172 @@
+/*Implemente um programa, para gerenciamento de uma bibliteca, utilizando a estrutura de objetos. O programa deverá
+ conter 3 vetores (livros, usuario, emprestimos) 
+que deverão armazenar as informações contidas nos objetos.
+Este programa deverá conter as seguintes fuções:
+O programa deverá conter:
+
+- Uma função para receber cadastro de livros, considerando armazenamento de um objeto com os 
+seguintes atributos:  id, titulo, autor, ano, paginas, editora, status de empréstimo. OK
+
+- Uma função para receber o cadastro de usuários, armazenamento de um objeto com os 
+seguintes atributos: id, nomeCompleto, cpf, endereco, cidade, escola.  OK
+
+- Uma função para emprestar livros: Esta função devrá receber o nome e id do usuário e o nome do livro.
+ Se o livro existir no vetor de livros e estiver com o status "disponível", poderá ser emprestado (alterar o status do livro),
+  caso contrário, deverá retornar a mensagem "Livro já emprestado".
+
+- Uma função para devolução de livros: Esta função deverá receber o nome do livro.
+ Se estiver com o status emprestado, deverá alterar o status para 'disponivel' 
+ e exibir uma mensagem de confirmação de devolução. 
+
+- Uma função que apresenta a relação de livros disponíveis na biblioteca (apresentado: nome do livro, autor e status)OK; 
+
+- Uma função que apresenta os livros com status "emprestado".
+
+DESAFIO: Funções de exclusão de livros e usuário. */
+
+const readline = require("readline-sync")
+let livros = []; //variavel vetor
+let usuarios = []
+let emprestimos = []
+
+function idLivros(numLivro, numTitulo, nomeAutor, anoLivro, qtdePaginas, nomeEditora, estadoDoLivro) { //classe
+    livros.push(//.push empurra os dados dentro das {} para a variavel/vetor poltrona = []
+         {
+        id: numLivro,
+        titulo: numTitulo,
+        autor: nomeAutor,
+        ano: anoLivro,
+        paginas: qtdePaginas,
+        editora: nomeEditora,
+        statusLivro: estadoDoLivro
+        }
+    )//fecha poltrona.push
+}//fecha function criaPoltrona
+function livrosCadastrados() {
+    console.log("::::::: LIVROS CADASTRADOS :::::::")
+    for (let i = 0; i < livros.length; i++) {
+        console.log(`Livro: ${i+1} -> 
+            id: ${livros[i].id}, 
+            titulo: ${livros[i].titulo},
+            autor: ${livros[i].autor}, 
+            ano: ${livros[i].ano},  
+            paginas: ${livros[i].paginas}, 
+            editora: ${livros[i].editora}, 
+            Status do livro: ${livros[i].statusLivro},  `)
+
+    }
+}
+function cadasUsuario(numUsuario, nomeUsuari, numCpf, endeUsuario, cidadeUsuario, escolaUsuario){
+    usuarios.push(//.push empurra os dados dentro das {} para a variavel/vetor poltrona = []
+         {
+        identi: numUsuario,// chave: valor
+        nomeCompleto: nomeUsuari,// chave: valor
+        cpf: numCpf,// chave: valor
+        endereco: endeUsuario,// chave: valor
+        cidade: cidadeUsuario,// chave: valor
+        escola: escolaUsuario
+        }
+    )
+}
+function emprestaLivro(nomeDoUsuario, idDoUsuario, nomeDoLivro){
+    emprestimos.push({
+        nome: nomeDoUsuario,
+        id: idDoUsuario,
+        livro: nomeDoLivro
+    }
+    )
+}
+
+function excluirLivro(nomeAutor, numTitulo) {
+    let existeLivro = false;
+    let indexLivro;
+
+//ALTERNATIVA!
+for (let i = 0; i < livros.length; i++) {
+    if ((livros[i].autor === nomeAutor) && (livros[i].titulo === numTitulo)){
+        indexLivro = i;
+        existeLivro = true
+        console.log(`Autor e Titulo do livro encontrados! `)
+        break;
+    }
+}
+
+if (existeLivro === true) {
+    livros.splice(indexLivro, 1)
+    console.log("Item excluido da biblioteca! :: " + indexLivro)
+    livrosCadastrados()
+}else{
+    console.log("Livro não encontrado!")
+}
+}
+
+function letreiro() {
+    console.log("********************************************")
+    console.log("********************************************")
+    console.log("**************    BIBLIOTECA   *************")
+    console.log("********************************************")
+    console.log("********************************************")
+}
+
+function menu() {
+    letreiro()
+    console.log("*** MENU DE ACESSO ***")
+    console.log("1. Cadastrar livros")
+    console.log("2. Cadastrar usuarios")
+    console.log("3. Excluir livro")
+    console.log("4. livros na biblioteca")
+    let opcao = readline.questionInt("Digite a sua opcao: ")
+
+    switch (opcao) {
+        case 1:
+            console.log("Cadastrar Livro")
+            let numLivro = readline.questionInt("Digite o numero do livro: ")
+            let numTitulo = readline.question("Digite o nome do livro: ")
+            let nomeAutor = readline.question("Digite o nome do autor do livro: ")
+            let anoLivro = readline.questionInt("Digite o ano em que o livro fooi lançado: ")
+            let qtdePaginas = readline.questionInt("Digite a quantidade de paginas do livro: ")
+            let nomeEditora = readline.question("Digite o nome da editora do livro: ")
+            let estadoDoLivro = readline.question("Digite se o livro está disponivel ou indisponivel: ")
+
+            idLivros(numLivro, numTitulo, nomeAutor, anoLivro, qtdePaginas, nomeEditora,estadoDoLivro)
+            break;
+        case 2:
+            console.log("Cadastrar Usuario")
+            let numUsuario = readline.questionInt("Cadastre seu numero de usuario: ")
+            let nomeUsuari = readline.question("Usuario digite seu nome: ")
+            let numCpf = readline.questionInt("Usuario digite seu CPF: ")
+            let endeUsuario = readline.question("Usuario digite seu endereco: ")
+            let cidadeUsuario = readline.question("Usuario digite o nome da sua cidade: ")
+            let escolaUsuario = readline.question("Usuario digite o nome da sua escola: ")
+            cadasUsuario(numUsuario, nomeUsuari, numCpf, endeUsuario, cidadeUsuario, escolaUsuario)
+            break;
+        case 3:
+            console.log("Excluir livro")
+            let nomeAut = readline.question("Digite o nome do autor do livro: ")
+            let titLivro = readline.question("Digite o titulo do livro: ")
+            excluirLivro(nomeAut, titLivro)
+            console.clear()
+            console.log("Livros da biblioteca")
+            livrosCadastrados()
+            break;
+        case 4:
+            console.clear()
+            console.log("Livros da biblioteca")
+            livrosCadastrados()
+            break;
+        case 5:
+            console.log("Livros da biblioteca")
+            livrosCadastrados()
+            let nomeDoUsuario = readline.question("Informe o nome do usuario: ")
+            let idDoUsuario = readline.questionInt("Digite o numero do livro(ID): ")
+            let nomeDoLivro = readline.question("Digite o nome do livro: ")
+            emprestaLivro(nomeDoUsuario, idDoUsuario, nomeDoLivro)
+        default:
+            console.log("Opcao invalida")
+            break;
+    }
+}
+
+while(true){
+    menu();
+}
