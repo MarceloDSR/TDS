@@ -44,30 +44,27 @@ A entrega do código fonte deste desafio, deverá ser realizada até 15/10/2023.
 const readline = require("readline-sync")
 
 let clientes = []
+const agenciaConta = "1014-0"
 
-function cadastroCliente(lista, nomeCliente, sobNomeCliente, agenciaConta, contaCliente, senhaConta, saldoInicial, rendaMensal) {
-    clientes =
+function cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal) {
+    clientes.push(
     {
-        id: lista.length, //idLivro recebe a lista que em seguida passara os dados para o array livros
+        id: retornaId(), //recebe a lista que em seguida passara os dados para o array livros
         nome: nomeCliente,
         sobrenome: sobNomeCliente,
-        agencia: agenciaConta,
-        conta: contaCliente,
+        agencia: "1014-0",
+        conta: criaConta(),
         senha: senhaConta,
         saldaInicial: saldoInicial,
         rendaMensal: rendaMensal
-    }
-    for (let i = 100; i >= 100; i++) {
-        agenciaConta++ 
-    }
-
-    for (let contaCliente = 10.000; contaCliente >= 10.000; contaCliente++) {
-        contaCliente++
-    }
-    clientes.push(clientes)
-    return clientes
+    })
 }
-
+function retornaId(){
+    return clientes.length + 100
+}
+function criaConta() {
+    return clientes.length + 10000
+}
 function excluirCliente(contaCliente, senhaConta) {
     let existeCliente = false;
     let indexCliente;
@@ -90,8 +87,17 @@ if (existeCliente === true) {
 }
 
 function deposito(contaCliente){
-    contaCliente = readline.questionFloat("Infome o nuumero da sua conta: ")
-
+    contaCliente = readline.questionInt("Infome o numero da sua conta: ")
+    senhaConta = readline.questionInt("Digite sua senha: ")
+    if (contaCliente.length === contaCliente && senhaConta.length === senhaConta) {
+        console.log("Os dados digitados estão corretos.")
+        valorDeposito = readline.questionInt("Digite o valor a ser depositado: ")
+        saldoAtual = saldoInicial + valorDeposito
+        console.log(`Deposito realizado com sucesso, seu saldo atué é de R$${saldoAtual}`)
+    } else {
+        console.log("Conta não encontrada. digite novamente")
+        return deposito()
+    }
 }
 
 
@@ -117,21 +123,22 @@ switch (opcao) {
         nomeCliente = readline.question("Digite seu primeiro nome: ")
         sobNomeCliente = readline.question("Digite seu sobrenome: ")
         senhaConta = readline.questionInt("Digite sua senha: ")
-        agenciaConta = 1014-0
         rendaMensal = readline.questionFloat("Digite sua renda  mensal: ")
         saldoInicial = readline.questionInt("Digite quanto deseja aplicar: ")
-        cadastroCliente(lista,nomeCliente, sobNomeCliente, agenciaConta, contaCliente, senhaConta, saldoInicial, rendaMensal)
-        console.log(`Conta cadastrada com sucesso! Bem vindo ${nomeCliente}!
+        cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal)
+        console.log(`Conta cadastrada com sucesso! 
+        Bem vindo - ${nomeCliente}!
         Os dados da sua conta são: Agencia: ${agenciaConta}.
-        Conta: ${contaCliente}.
+        Conta: ${criaConta()}
         Saldo inicial de R$ ${saldoInicial}.`)
+        opçao = readline.question("Pressione qualquer tecla para retornar ao menu.")
         return menu()
     case 400:
         contaCliente = readline.questionInt("Digite a conta a ser excluida: ")
         senhaConta = readline.questionInt("Digite a senha da conta que irá ser excluida: ")
         excluirCliente(contaCliente, senhaConta)
     case 1:
-
+    
     default:
         break;
 }
