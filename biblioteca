@@ -24,149 +24,185 @@ seguintes atributos: id, nomeCompleto, cpf, endereco, cidade, escola.  OK
 
 DESAFIO: Funções de exclusão de livros e usuário. */
 
-const readline = require("readline-sync")
-let livros = []; //variavel vetor
-let usuarios = []
-let emprestimos = []
+const readline = require("readline-sync");
 
-function idLivros(numLivro, numTitulo, nomeAutor, anoLivro, qtdePaginas, nomeEditora, estadoDoLivro) { //classe
-    livros.push(//.push empurra os dados dentro das {} para a variavel/vetor poltrona = []
-         {
-        id: numLivro,
-        titulo: numTitulo,
-        autor: nomeAutor,
-        ano: anoLivro,
-        paginas: qtdePaginas,
-        editora: nomeEditora,
-        statusLivro: estadoDoLivro
+let clientes = [];
+const agenciaConta = "1014-0";
+
+function cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal) {
+    clientes.push({
+        id: retornaId(),
+        nome: nomeCliente,
+        sobrenome: sobNomeCliente,
+        agencia: agenciaConta,
+        conta: criaConta(),
+        senha: senhaConta,
+        saldoInicial: saldoInicial,
+        rendaMensal: rendaMensal
+    });
+}
+
+function retornaId() {
+    return clientes.length + 100;
+}
+
+function criaConta() {
+    return clientes.length + 10000;
+}
+
+function excluirCliente(contaCliente, senhaConta) {
+    let existeCliente = false;
+    let indexCliente;
+
+    for (let i = 0; i < clientes.length; i++) {
+        if (clientes[i].conta === contaCliente && clientes[i].senha === senhaConta) {
+            indexCliente = i;
+            existeCliente = true;
+            console.log("Cliente encontrado!");
+            break;
         }
-    )//fecha poltrona.push
-}//fecha function criaPoltrona
-function livrosCadastrados() {
-    console.log("::::::: LIVROS CADASTRADOS :::::::")
-    for (let i = 0; i < livros.length; i++) {
-        console.log(`Livro: ${i+1} -> 
-            id: ${livros[i].id}, 
-            titulo: ${livros[i].titulo},
-            autor: ${livros[i].autor}, 
-            ano: ${livros[i].ano},  
-            paginas: ${livros[i].paginas}, 
-            editora: ${livros[i].editora}, 
-            Status do livro: ${livros[i].statusLivro},  `)
+    }
 
+    if (existeCliente) {
+        clientes.splice(indexCliente, 1);
+        console.log("Cliente excluído com sucesso!");
+    } else {
+        console.log("Cliente não encontrado!");
     }
 }
-function cadasUsuario(numUsuario, nomeUsuari, numCpf, endeUsuario, cidadeUsuario, escolaUsuario){
-    usuarios.push(//.push empurra os dados dentro das {} para a variavel/vetor poltrona = []
-         {
-        identi: numUsuario,// chave: valor
-        nomeCompleto: nomeUsuari,// chave: valor
-        cpf: numCpf,// chave: valor
-        endereco: endeUsuario,// chave: valor
-        cidade: cidadeUsuario,// chave: valor
-        escola: escolaUsuario
+
+function deposito() {
+    const contaCliente = readline.questionInt("Informe o número da sua conta: ");
+    const senhaConta = readline.questionInt("Digite sua senha: ");
+
+    for (let i = 0; i < clientes.length; i++) {
+        if (clientes[i].conta === contaCliente && clientes[i].senha === senhaConta) {
+            console.log("Os dados digitados estão corretos.");
+            const valorDeposito = readline.questionInt("Digite o valor a ser depositado: ");
+            clientes[i].saldoInicial += valorDeposito;
+            console.log(`Depósito realizado com sucesso, seu saldo atual é de R$${clientes[i].saldoInicial}`);
+            return; // Encerra a função após o depósito
         }
-    )
-}
-function emprestaLivro(nomeDoUsuario, idDoUsuario, nomeDoLivro){
-    emprestimos.push({
-        nome: nomeDoUsuario,
-        id: idDoUsuario,
-        livro: nomeDoLivro
     }
-    )
+
+    console.log("Conta não encontrada. Digite novamente");
 }
 
-function excluirLivro(nomeAutor, numTitulo) {
-    let existeLivro = false;
-    let indexLivro;
+function saque() {
+    const contaCliente = readline.questionInt("Informe o número da sua conta: ");
+    const senhaConta = readline.questionInt("Digite sua senha: ");
 
-//ALTERNATIVA!
-for (let i = 0; i < livros.length; i++) {
-    if ((livros[i].autor === nomeAutor) && (livros[i].titulo === numTitulo)){
-        indexLivro = i;
-        existeLivro = true
-        console.log(`Autor e Titulo do livro encontrados! `)
-        break;
+    for (let i = 0; i < clientes.length; i++) {
+        if (clientes[i].conta === contaCliente && clientes[i].senha === senhaConta) {
+            console.log("Os dados digitados estão corretos.");
+            const valorSaque = readline.questionInt("Digite o valor a ser sacado: ");
+            if (valorSaque > clientes[i].saldoInicial) {
+                console.log("Saldo insuficiente. Seu saldo atual é de R$" + clientes[i].saldoInicial);
+            } else {
+                clientes[i].saldoInicial -= valorSaque;
+                console.log(`Saque realizado com sucesso, seu saldo atual é de R$${clientes[i].saldoInicial}`);
+            }
+            return; // Encerra a função após o saque
+        }
     }
+
+    console.log("Conta não encontrada. Digite novamente");
 }
 
-if (existeLivro === true) {
-    livros.splice(indexLivro, 1)
-    console.log("Item excluido da biblioteca! :: " + indexLivro)
-    livrosCadastrados()
-}else{
-    console.log("Livro não encontrado!")
-}
+function extrato() {
+    const contaCliente = readline.questionInt("Informe o número da sua conta: ");
+    const senhaConta = readline.questionInt("Digite sua senha: ");
+
+    for (let i = 0; i < clientes.length; i++) {
+        if (clientes[i].conta === contaCliente && clientes[i].senha === senhaConta) {
+            console.log(`Nome: ${clientes[i].nome} ${clientes[i].sobrenome}`);
+            console.log(`Agência: ${clientes[i].agencia}`);
+            console.log(`Conta: ${clientes[i].conta}`);
+            console.log(`Saldo Atual: R$${clientes[i].saldoInicial}`);
+            return; // Encerra a função após mostrar o extrato
+        }
+    }
+
+    console.log("Conta não encontrada. Digite novamente");
 }
 
-function letreiro() {
-    console.log("********************************************")
-    console.log("********************************************")
-    console.log("**************    BIBLIOTECA   *************")
-    console.log("********************************************")
-    console.log("********************************************")
+function emprestimo() {
+    const contaCliente = readline.questionInt("Informe o número da sua conta: ");
+    const valorEmprestimo = readline.questionInt("Informe o valor do empréstimo: ");
+    const parcelas = readline.questionInt("Informe a quantidade de parcelas: ");
+
+    for (let i = 0; i < clientes.length; i++) {
+        if (clientes[i].conta === contaCliente) {
+            const juros = 0.05;
+            const valorComJuros = valorEmprestimo * (1 + juros);
+            const prestacao = valorComJuros / parcelas;
+
+            if (prestacao > 0.2 * clientes[i].rendaMensal) {
+                console.log("Empréstimo não concedido. Prestação superior a 20% da renda mensal.");
+            } else {
+                console.log(`Empréstimo concedido. Valor mensal a ser pago: R$${prestacao.toFixed(2)}`);
+                console.log(`Total a ser pago: R$${valorComJuros.toFixed(2)}`);
+                console.log(`Quantidade de parcelas: ${parcelas}`);
+            }
+            return;
+        }
+    }
+
+    console.log("Conta não encontrada. Digite novamente");
 }
 
 function menu() {
-    letreiro()
-    console.log("*** MENU DE ACESSO ***")
-    console.log("1. Cadastrar livros")
-    console.log("2. Cadastrar usuarios")
-    console.log("3. Excluir livro")
-    console.log("4. livros na biblioteca")
-    let opcao = readline.questionInt("Digite a sua opcao: ")
+    console.log("******************************************");
+    console.log("******* BEM VINDO AO BANCO TWO TWO *******");
+    console.log("******************************************");
+    console.log('*** MENU DE ACESSO ***');
+    console.log('1: DEPÓSITO.');
+    console.log('2: SAQUE.');
+    console.log('3: EXTRATO.');
+    console.log('4: EMPRÉSTIMO.');
+    console.log('0: ENCERRAR PROGRAMA.');
+
+    const opcao = readline.questionInt('Digite uma opção: ');
+
 
     switch (opcao) {
-        case 1:
-            console.log("Cadastrar Livro")
-            let numLivro = readline.questionInt("Digite o numero do livro: ")
-            let numTitulo = readline.question("Digite o nome do livro: ")
-            let nomeAutor = readline.question("Digite o nome do autor do livro: ")
-            let anoLivro = readline.questionInt("Digite o ano em que o livro fooi lançado: ")
-            let qtdePaginas = readline.questionInt("Digite a quantidade de paginas do livro: ")
-            let nomeEditora = readline.question("Digite o nome da editora do livro: ")
-            let estadoDoLivro = readline.question("Digite se o livro está disponivel ou indisponivel: ")
-
-            idLivros(numLivro, numTitulo, nomeAutor, anoLivro, qtdePaginas, nomeEditora,estadoDoLivro)
-            break;
         case 2:
-            console.log("Cadastrar Usuario")
-            let numUsuario = readline.questionInt("Cadastre seu numero de usuario: ")
-            let nomeUsuari = readline.question("Usuario digite seu nome: ")
-            let numCpf = readline.questionInt("Usuario digite seu CPF: ")
-            let endeUsuario = readline.question("Usuario digite seu endereco: ")
-            let cidadeUsuario = readline.question("Usuario digite o nome da sua cidade: ")
-            let escolaUsuario = readline.question("Usuario digite o nome da sua escola: ")
-            cadasUsuario(numUsuario, nomeUsuari, numCpf, endeUsuario, cidadeUsuario, escolaUsuario)
+            saque();
             break;
         case 3:
-            console.log("Excluir livro")
-            let nomeAut = readline.question("Digite o nome do autor do livro: ")
-            let titLivro = readline.question("Digite o titulo do livro: ")
-            excluirLivro(nomeAut, titLivro)
-            console.clear()
-            console.log("Livros da biblioteca")
-            livrosCadastrados()
+            extrato();
             break;
         case 4:
-            console.clear()
-            console.log("Livros da biblioteca")
-            livrosCadastrados()
+            emprestimo();
             break;
-        case 5:
-            console.log("Livros da biblioteca")
-            livrosCadastrados()
-            let nomeDoUsuario = readline.question("Informe o nome do usuario: ")
-            let idDoUsuario = readline.questionInt("Digite o numero do livro(ID): ")
-            let nomeDoLivro = readline.question("Digite o nome do livro: ")
-            emprestaLivro(nomeDoUsuario, idDoUsuario, nomeDoLivro)
+        case 300:
+            let nomeCliente = readline.question("Digite seu primeiro nome: ");
+            let sobNomeCliente = readline.question("Digite seu sobrenome: ");
+            let senhaConta = readline.questionInt("Digite sua senha: ");
+            let rendaMensal = readline.questionFloat("Digite sua renda mensal: ");
+            let saldoInicial = readline.questionInt("Digite quanto deseja aplicar: ");
+            cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal);
+            console.log(`Conta cadastrada com sucesso! 
+            Bem-vindo - ${nomeCliente}!
+            Os dados da sua conta são: Agência: ${agenciaConta}.
+            Conta: ${criaConta()}
+            Saldo inicial de R$ ${saldoInicial}.`);
+            break;
+        case 400:
+            let contaClienteExcluir = readline.questionInt("Digite a conta a ser excluída: ");
+            let senhaContaExcluir = readline.questionInt("Digite a senha da conta que será excluída: ");
+            excluirCliente(contaClienteExcluir, senhaContaExcluir);
+            break;
+        case 1:
+            deposito();
+            break;
+        case 0:
+            process.exit(0);
         default:
-            console.log("Opcao invalida")
-            break;
+            console.log("Opção inválida. Tente novamente.");
     }
 }
 
-while(true){
+while (true) {
     menu();
 }
