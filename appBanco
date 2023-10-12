@@ -44,106 +44,200 @@ A entrega do código fonte deste desafio, deverá ser realizada até 15/10/2023.
 const readline = require("readline-sync")
 
 let clientes = []
-const agenciaConta = "1014-0"
 
-function cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal) {
-    clientes.push(
-    {
-        id: retornaId(), //recebe a lista que em seguida passara os dados para o array livros
+
+function cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal, clientes, saldoExtrato, valorTotal) {
+    let cliente = {
+        id: clientes.length + 100, // recebe a lista que em seguida passara os dados para o array livros
         nome: nomeCliente,
         sobrenome: sobNomeCliente,
         agencia: "1014-0",
-        conta: criaConta(),
+        conta: clientes.length + 10000,
         senha: senhaConta,
-        saldaInicial: saldoInicial,
-        rendaMensal: rendaMensal
-    })
+        saldoInicial: saldoInicial,
+        rendaMensal: rendaMensal,
+        saldoAtual: saldoExtrato,
+        saqueValor: valorTotal
+    }
+    clientes.push(cliente)
+    return cliente
 }
-function retornaId(){
-    return clientes.length + 100
-}
-function criaConta() {
-    return clientes.length + 10000
-}
-function excluirCliente(contaCliente, senhaConta) {
+// function retornaId(clientes){
+//     return clientes.length + 100
+// }
+// function criaConta(clientes) {
+//     let resultado = clientes.length + 10000
+//     return resultado
+// }
+function excluirCliente(contaCliente, senhaConta, clientes) {
     let existeCliente = false;
-    let indexCliente;
-for (let i = 0; i < clientes.length; i++) {
-    if ((clientes[i].conta === contaCliente) && (clientes[i].senha === senhaConta)){
-        indexCliente = i;
-        existeCliente = true
-        console.log(`Cliente encontrado! `)
-        break;
+
+    for (let i = 0; i < clientes.length; i++) {
+        if ((clientes[i].conta === contaCliente) && (clientes[i].senha === senhaConta)) {
+            existeCliente = true
+            console.log(`Cliente encontrado! `)
+            break;
+        }
+        if (existeCliente === true) {
+            clientes.splice(i, 1)
+            console.log("Cliente excluido com sucesso! " + i)
+            cadastroCliente()
+        } else {
+            console.log("Cliente não encontrado! ")
+        }
+    }
+
+}
+
+
+function deposito(contaCliente, senhaConta, clientes) {
+    // enviar no case a contaCliente e a senhaConta
+    // percorrer o vetor de clientes em busca da conta e da senha, igual foi feito em excluirCliente
+    // depois que encontrar, perguntar o valor do deposito e acrescentar dentro do saldo daquele cliente
+    existeCliente = false;
+    for (let i = 0; i < clientes.length; i++) {
+        if (contaCliente == clientes[i].conta && senhaConta == clientes[i].senha) {
+            existeCliente = true
+            console.log("Os dados digitados estão corretos.")
+            valorDeposito = readline.questionInt("Digite o valor a ser depositado: ")
+            saldoExtrato = saldoInicial + valorDeposito
+            console.log(`Deposito realizado com sucesso, seu saldo atual é de R$${saldoExtrato}`)
+            break;
+        } else {
+            console.log("Conta não encontrada. Digite novamente")
+        }
     }
 }
 
-if (existeCliente === true) {
-    clientes.splice(indexCliente, 1)
-    console.log("Cliente excluido com sucesso! " + indexCliente)
-    cadastroCliente()
-}else{
-    console.log("Cliente não encontrado! ")
-}
-}
-
-function deposito(contaCliente){
-    contaCliente = readline.questionInt("Infome o numero da sua conta: ")
-    senhaConta = readline.questionInt("Digite sua senha: ")
-    if (contaCliente.length === contaCliente && senhaConta.length === senhaConta) {
-        console.log("Os dados digitados estão corretos.")
-        valorDeposito = readline.questionInt("Digite o valor a ser depositado: ")
-        saldoAtual = saldoInicial + valorDeposito
-        console.log(`Deposito realizado com sucesso, seu saldo atué é de R$${saldoAtual}`)
-    } else {
-        console.log("Conta não encontrada. digite novamente")
-        return deposito()
+function saque(contaCliente, senhaConta, clientes) {
+    existeCliente = false;
+    for (let i = 0; i < clientes.length; i++) {
+        if (contaCliente == clientes[i].conta && senhaConta == clientes[i].senha) {
+            existeCliente = true
+            valorSaque = readline.questionInt("Digite o valor a ser Sacado: ")
+            valorTotal = clientes[i].saldoExtrato - valorSaque
+            console.log("Saque ok!")
+        } else if (clientes[i].valorTotal<= clientes[i].valorSaque) {
+            console.log(`Saque realizado com sucesso, seu saldo atual é de R$${saldoExtrato}`)
+    }else if(clientes[i].valorSaque>clientes[i].valoTotal) {
+            console.log("Saldo Insuficiente")
+        }
     }
 }
+// 5. Uma função que permita a emissão do extrato da conta. A função recebe o numero da conta e a senha como parâmetros.
+// Deverá apresentar na tela, de forma organizada, os dados de: nome do cliente, numero agência, numero conta e saldo atual do
+// cliente que está acessando a conta.
+function extrato(contaCliente, senhaConta, clientes) {
+    existeCliente = false;
+    for (let i = 0; i < clientes.length; i++) {
+        if (contaCliente == clientes[i].conta && senhaConta == clientes[i].senha) {
+            existeCliente = true
+            console.log(`Olá ${
+                clientes[i].nomeCliente
+            } ${
+                clientes[i].sobNomeCliente
+            }!
+            Agencia: ${
+                clientes[i].agencia
+            }
+            Conta: ${
+                clientes[i].agencia
+            }
+            Saldo atual de ${
+                clientes[i].saldoExtrato
+            }.`)
+        } else {
+            console.log("Conta não encontrada!")
+        }
+    }
+}
+function emprestimo() {
+    let tipoTransacao = readline.question("Digite o tipo de venda desejada V- Venda a vista ou P- Venda a prazo: ").toLocaleUpperCase();
+    let valorCompra = readline.questionFloat("Digite o valor da venda: ")
+    let desconto = 0
+    let valorPosDesconto = 0
+    let valorPosAcrescimo = 0
+    let acrescimo = 0
+    let parcelas = 0
 
+    switch (tipoTransacao) {
+        case "V": desconto = valorCompra * 0.10;
+            valorPosDesconto = valorCompra - desconto
+            console.log(`O valor da venda a vista com 10% de desconto é R$${valorPosDesconto},00`)
+            break;
+        case "P": parcelas = readline.questionInt("Digite a quantidade de parcelas: ")
+            acrescimo = valorCompra * 0.065;
+            valorPosAcrescimo = valorCompra + acrescimo
+            valorParcelas = valorPosAcrescimo / parcelas
+            console.log(`O valor da compra a prazo é R$${valorPosAcrescimo} em ${parcelas} parcelas no valor de R$${valorParcelas} cada.`)
+            break;
+        default:
+            console.log("Você não digitou V ou P para calcular a sua venda! ERRO!")
+            break;
+    }
+}
+function encerrar() {
+    process.exit(0)
+}
 
-
-
-
-function menu(){
+function menu() {
 
     console.log("******************************************")
     console.log("******* BEM VINDO AO BANCO TWO TWO *******")
     console.log("******************************************")
     console.log('*** MENU DE ACESSO ***')
     console.log('1: DEPOSITO')
-    console.log('2: CADASTRAR USUARIO: ')
-    console.log('3: INFORMAR EMPRESTIMO: ')
-    console.log('4: INFORMAR DEVOLUCAO DO EMPRESTIMO')
-    console.log('0: Encerrar programa.')
+    console.log('2: SAQUE')
+    console.log('3: EXTRATO')
     let opcao = readline.questionInt('digite uma opcao: ')
 
 
-switch (opcao) {
-    case 300:
-        nomeCliente = readline.question("Digite seu primeiro nome: ")
-        sobNomeCliente = readline.question("Digite seu sobrenome: ")
-        senhaConta = readline.questionInt("Digite sua senha: ")
-        rendaMensal = readline.questionFloat("Digite sua renda  mensal: ")
-        saldoInicial = readline.questionInt("Digite quanto deseja aplicar: ")
-        cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal)
-        console.log(`Conta cadastrada com sucesso! 
-        Bem vindo - ${nomeCliente}!
-        Os dados da sua conta são: Agencia: ${agenciaConta}.
-        Conta: ${criaConta()}
-        Saldo inicial de R$ ${saldoInicial}.`)
-        opçao = readline.question("Pressione qualquer tecla para retornar ao menu.")
-        return menu()
-    case 400:
-        contaCliente = readline.questionInt("Digite a conta a ser excluida: ")
-        senhaConta = readline.questionInt("Digite a senha da conta que irá ser excluida: ")
-        excluirCliente(contaCliente, senhaConta)
-    case 1:
-    
-    default:
-        break;
-}
+    switch (opcao) {
+        case 300:
+            console.clear()
+            nomeCliente = readline.question("Digite seu primeiro nome: ")
+            sobNomeCliente = readline.question("Digite seu sobrenome: ")
+            senhaConta = readline.questionInt("Digite sua senha: ")
+            rendaMensal = readline.questionFloat("Digite sua renda  mensal: ")
+            saldoInicial = readline.questionInt("Digite quanto deseja aplicar: ")
+            cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal, clientes)
+            //     console.log(`Conta cadastrada com sucesso!
+            // // Bem vindo - ${nomeCliente}!
+            // // Os dados da sua conta são: Agencia: ${agenciaConta}.
+            // // Conta: ${conta}
+            // // Saldo inicial de R$ ${saldoInicial}.`)
+            opçao = readline.question("Pressione qualquer tecla para retornar ao menu.")
+            return menu()
+        case 400:
+            console.clear()
+            contaCliente = readline.questionInt("Digite a conta a ser excluida: ")
+            senhaConta = readline.questionInt("Digite a senha da conta que irá ser excluida: ")
+            excluirCliente(contaCliente, senhaConta, clientes)
+            break;
+        case 1:
+            console.clear()
+            contaCliente = readline.questionInt("Infome o numero da sua conta: ")
+            senhaConta = readline.questionInt("Digite sua senha: ")
+            deposito(contaCliente, senhaConta, clientes)
+            break;
+        case 2:
+            console.clear()
+            contaCliente = readline.questionInt("Infome o numero da sua conta: ")
+            senhaConta = readline.questionInt("Digite sua senha: ")
+            saque(contaCliente, senhaConta, clientes)
+            break;
+        case 3:
+            console.clear()
+            contaCliente = readline.questionInt("Infome o numero da sua conta: ")
+            senhaConta = readline.questionInt("Digite sua senha: ")
+            extrato(contaCliente, senhaConta, clientes)
+        case 900: encerrar()
+        default:
+            break;
+    }
 }
 
 while (true) {
     menu()
+    readline.question("Clique enter para continuar!")
 }
