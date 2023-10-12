@@ -44,7 +44,7 @@ A entrega do código fonte deste desafio, deverá ser realizada até 15/10/2023.
 const readline = require("readline-sync")
 
 let clientes = []
-
+const agencia = "1014-0"
 
 function cadastroCliente(nomeCliente, sobNomeCliente, senhaConta, saldoInicial, rendaMensal, clientes, saldoExtrato, valorTotal) {
     let cliente = {
@@ -132,20 +132,10 @@ function extrato(contaCliente, senhaConta, clientes) {
     for (let i = 0; i < clientes.length; i++) {
         if (contaCliente == clientes[i].conta && senhaConta == clientes[i].senha) {
             existeCliente = true
-            console.log(`Olá ${
-                clientes[i].nomeCliente
-            } ${
-                clientes[i].sobNomeCliente
-            }!
-            Agencia: ${
-                clientes[i].agencia
-            }
-            Conta: ${
-                clientes[i].agencia
-            }
-            Saldo atual de ${
-                clientes[i].saldoExtrato
-            }.`)
+            console.log(`Olá ${nomeCliente} ${sobNomeCliente}!
+            Agencia: ${agencia}
+            Conta: ${clientes[i].conta}
+            Saldo atual de ${clientes[i].saldoExtrato}.`)
         } else {
             console.log("Conta não encontrada!")
         }
