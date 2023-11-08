@@ -1,10 +1,3 @@
-import * as readline from 'readline';
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
 let numFuncionarios: number;
 let homens: number = 0;
 let mulheres: number = 0;
@@ -13,6 +6,8 @@ let totalSalarios: number = 0;
 let salarioHomens: number = 0;
 let salarioMulheres: number = 0;
 let salarioNaoBinarios: number = 0;
+
+const readline = require('readline');
 
 function coletarDadosFuncionario(index: number) {
   if (index === numFuncionarios) {
@@ -36,35 +31,31 @@ function coletarDadosFuncionario(index: number) {
     console.log(`Gasto em salários de mulheres: R$${salarioMulheres.toFixed(2)}`);
     console.log(`Gasto em salários de não-binários: R$${salarioNaoBinarios.toFixed(2)}`);
     console.log(`Gênero com maior salário: ${generoMaiorSalario}`);
-    rl.close();
   } else {
-    rl.question(`Digite o nome do funcionário ${index + 1}: `, (nome: string) => {
-      rl.question(`Digite o gênero do funcionário ${nome} (M para masculino, F para feminino, NB para não-binário): `, (genero: string) => {
-        rl.question(`Digite o salário do funcionário ${nome}: `, (salarioInput: string) => {
-          const salario: number = parseFloat(salarioInput);
-          
-          // Atualizando os contadores
-          totalSalarios += salario;
-          
-          if (genero === 'M') {
-            homens++;
-            salarioHomens += salario;
-          } else if (genero === 'F') {
-            mulheres++;
-            salarioMulheres += salario;
-          } else if (genero === 'NB') {
-            naoBinarios++;
-            salarioNaoBinarios += salario;
-          }
-          
-          coletarDadosFuncionario(index + 1); // Próximo funcionário
-        });
-      });
-    });
+    const readlineSync = require('readline-sync');
+    const nome = readlineSync.question(`Digite o nome do funcionário ${index + 1}: `);
+    const genero = readlineSync.question(`Digite o gênero do funcionário ${nome} (M para masculino, F para feminino, NB para não-binário): `);
+    const salarioInput = readlineSync.question(`Digite o salário do funcionário ${nome}: `);
+    const salario: number = parseFloat(salarioInput);
+
+    // Atualizando os contadores
+    totalSalarios += salario;
+
+    if (genero === 'M') {
+      homens++;
+      salarioHomens += salario;
+    } else if (genero === 'F') {
+      mulheres++;
+      salarioMulheres += salario;
+    } else if (genero === 'NB') {
+      naoBinarios++;
+      salarioNaoBinarios += salario;
+    }
+
+    coletarDadosFuncionario(index + 1); // Próximo funcionário
   }
 }
 
-rl.question("Digite a quantidade de funcionários: ", (num: string) => {
-  numFuncionarios = parseInt(num);
-  coletarDadosFuncionario(0); // Inicia a coleta de dados do primeiro funcionário
-});
+const readlineSync = require('readline-sync');
+numFuncionarios = parseInt(readlineSync.question("Digite a quantidade de funcionários: "));
+coletarDadosFuncionario(0); // Inicia a coleta de dados do primeiro funcionário
