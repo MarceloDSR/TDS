@@ -1,0 +1,59 @@
+const readline = require('readline-sync');
+
+let operacao;
+let operacoesRealizadas = {
+  'soma': 0,
+  'subtracao': 0,
+  'multiplicacao': 0,
+  'divisao': 0
+};
+let maiorResultado = Number.NEGATIVE_INFINITY;
+
+while (operacao !== 'sair') {
+  operacao = readline.question("Digite a operação (soma, subtracao, multiplicacao, divisao, sair): ").toLowerCase();
+
+  if (operacao === 'sair') {
+    console.log("Encerrando o programa.");
+    break;
+  }
+
+  const num1 = parseFloat(readline.question("Digite o primeiro número: "));
+  const num2 = parseFloat(readline.question("Digite o segundo número: "));
+
+  let resultado;
+
+  switch (operacao) {
+    case 'soma':
+      resultado = num1 + num2;
+      operacoesRealizadas['soma']++;
+      break;
+    case 'subtracao':
+      resultado = num1 - num2;
+      operacoesRealizadas['subtracao']++;
+      break;
+    case 'multiplicacao':
+      resultado = num1 * num2;
+      operacoesRealizadas['multiplicacao']++;
+      break;
+    case 'divisao':
+      resultado = num1 / num2;
+      operacoesRealizadas['divisao']++;
+      break;
+    default:
+      console.log("Operação inválida. Tente novamente.");
+      continue;
+  }
+
+  console.log(`Resultado da operação ${operacao}: ${resultado}`);
+
+  if (resultado > maiorResultado) {
+    maiorResultado = resultado;
+  }
+}
+
+console.log("Operações realizadas:");
+for (const key in operacoesRealizadas) {
+  console.log(`${key}: ${operacoesRealizadas[key]}`);
+}
+
+console.log(`Maior resultado encontrado: ${maiorResultado}`);
