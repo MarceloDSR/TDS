@@ -10,7 +10,7 @@ let operacoesRealizadas = {
 let maiorResultado = Number.NEGATIVE_INFINITY;
 
 while (operacao !== 'sair') {
-  operacao = readline.question("Digite a operação (soma, subtracao, multiplicacao, divisao, sair): ").toLowerCase();
+  operacao = readline.question("Digite a operacao (soma, subtracao, multiplicacao, divisao, sair): ").toLowerCase();
 
   if (operacao === 'sair') {
     console.log("Encerrando o programa.");
@@ -40,20 +40,23 @@ while (operacao !== 'sair') {
       operacoesRealizadas['divisao']++;
       break;
     default:
-      console.log("Operação inválida. Tente novamente.");
+      console.log("Operacao invalida. Tente novamente.");
       continue;
   }
 
-  console.log(`Resultado da operação ${operacao}: ${resultado}`);
+  console.log(`Resultado da operacao ${operacao}: ${resultado}`);
 
   if (resultado > maiorResultado) {
     maiorResultado = resultado;
   }
 }
 
-console.log("Operações realizadas:");
-for (const key in operacoesRealizadas) {
-  console.log(`${key}: ${operacoesRealizadas[key]}`);
+console.log("Operacoes realizadas:");
+const operacoes = ['soma', 'subtracao', 'multiplicacao', 'divisao'];
+
+for (let i = 0; i < operacoes.length; i++) {
+  const operacao = operacoes[i];
+  console.log(`${operacao}: ${operacoesRealizadas[operacao]}`);
 }
 
 console.log(`Maior resultado encontrado: ${maiorResultado}`);
