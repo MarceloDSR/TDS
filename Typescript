@@ -7,55 +7,51 @@ let salarioHomens: number = 0;
 let salarioMulheres: number = 0;
 let salarioNaoBinarios: number = 0;
 
-const readline = require('readline');
+const readline = require('readline-sync');
 
-function coletarDadosFuncionario(index: number) {
-  if (index === numFuncionarios) {
-    // Calculando o gênero com maior salário
-    let generoMaiorSalario: string = "";
-    let maiorSalario: number = Math.max(salarioHomens, salarioMulheres, salarioNaoBinarios);
-    if (maiorSalario === salarioHomens) {
-      generoMaiorSalario = "masculino";
-    } else if (maiorSalario === salarioMulheres) {
-      generoMaiorSalario = "feminino";
-    } else {
-      generoMaiorSalario = "não-binário";
-    }
+numFuncionarios = parseInt(readline.question("Digite a quantidade de funcionários: "));
 
-    // Exibindo resultados
-    console.log(`Quantidade de funcionários masculinos: ${homens}`);
-    console.log(`Quantidade de funcionárias femininas: ${mulheres}`);
-    console.log(`Quantidade de funcionárias não-binárias: ${naoBinarios}`);
-    console.log(`Gasto total em salários: R$${totalSalarios.toFixed(2)}`);
-    console.log(`Gasto em salários de homens: R$${salarioHomens.toFixed(2)}`);
-    console.log(`Gasto em salários de mulheres: R$${salarioMulheres.toFixed(2)}`);
-    console.log(`Gasto em salários de não-binários: R$${salarioNaoBinarios.toFixed(2)}`);
-    console.log(`Gênero com maior salário: ${generoMaiorSalario}`);
-  } else {
-    const readlineSync = require('readline-sync');
-    const nome = readlineSync.question(`Digite o nome do funcionário ${index + 1}: `);
-    const genero = readlineSync.question(`Digite o gênero do funcionário ${nome} (M para masculino, F para feminino, NB para não-binário): `);
-    const salarioInput = readlineSync.question(`Digite o salário do funcionário ${nome}: `);
-    const salario: number = parseFloat(salarioInput);
+let index = 0;
+while (index < numFuncionarios) {
+  const nome = readline.question(`Digite o nome do funcionário ${index + 1}: `);
+  const genero = readline.question(`Digite o gênero do funcionário ${nome} (M para masculino, F para feminino, NB para não-binário): `);
+  const salarioInput = readline.question(`Digite o salário do funcionário ${nome}: `);
+  const salario: number = parseFloat(salarioInput);
 
-    // Atualizando os contadores
-    totalSalarios += salario;
+  // Atualizando os contadores
+  totalSalarios += salario;
 
-    if (genero === 'M') {
-      homens++;
-      salarioHomens += salario;
-    } else if (genero === 'F') {
-      mulheres++;
-      salarioMulheres += salario;
-    } else if (genero === 'NB') {
-      naoBinarios++;
-      salarioNaoBinarios += salario;
-    }
-
-    coletarDadosFuncionario(index + 1); // Próximo funcionário
+  if (genero === 'M') {
+    homens++;
+    salarioHomens += salario;
+  } else if (genero === 'F') {
+    mulheres++;
+    salarioMulheres += salario;
+  } else if (genero === 'NB') {
+    naoBinarios++;
+    salarioNaoBinarios += salario;
   }
+
+  index++;
 }
 
-const readlineSync = require('readline-sync');
-numFuncionarios = parseInt(readlineSync.question("Digite a quantidade de funcionários: "));
-coletarDadosFuncionario(0); // Inicia a coleta de dados do primeiro funcionário
+// Calculando o gênero com maior salário
+let generoMaiorSalario: string = "";
+let maiorSalario: number = Math.max(salarioHomens, salarioMulheres, salarioNaoBinarios);
+if (maiorSalario === salarioHomens) {
+  generoMaiorSalario = "masculino";
+} else if (maiorSalario === salarioMulheres) {
+  generoMaiorSalario = "feminino";
+} else {
+  generoMaiorSalario = "não-binário";
+}
+
+// Exibindo resultados
+console.log(`Quantidade de funcionários masculinos: ${homens}`);
+console.log(`Quantidade de funcionárias femininas: ${mulheres}`);
+console.log(`Quantidade de funcionárias não-binárias: ${naoBinarios}`);
+console.log(`Gasto total em salários: R$${totalSalarios.toFixed(2)}`);
+console.log(`Gasto em salários de homens: R$${salarioHomens.toFixed(2)}`);
+console.log(`Gasto em salários de mulheres: R$${salarioMulheres.toFixed(2)}`);
+console.log(`Gasto em salários de não-binários: R$${salarioNaoBinarios.toFixed(2)}`);
+console.log(`Gênero com maior salário: ${generoMaiorSalario}`);
