@@ -1,0 +1,29 @@
+function contarVitorias(numBatalhas: number, batalhas: string[]): number {
+    let vitorias = 0;
+
+    for (let i = 0; i < numBatalhas; i++) {
+        const sequencia = batalhas[i];
+        if (!sequencia.includes('CD')) {
+            vitorias++;
+        }
+    }
+
+    return vitorias;
+}
+
+function principal() {
+    const entrada: string[] = [
+        '3',
+        'DCOOO',
+        'DODOCD',
+        'COD'
+    ];
+
+    const numBatalhas: number = parseInt(entrada[0]);
+    const batalhas: string[] = entrada.slice(1);
+
+    const resultado: number = contarVitorias(numBatalhas, batalhas);
+    console.log(resultado); 
+}
+
+principal();
