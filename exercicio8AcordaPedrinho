@@ -29,8 +29,37 @@ const duracaoEvento: string = `${dias} dia(s)\n${horas} hora(s)\n${minutos} minu
 console.log(duracaoEvento);
 */
 
+const entrada: string[] = [
+    "Dia 5",
+    "08 : 12 : 23",
+    "dia 9",
+    "06 : 13 : 23"
+];
 
+const diasInicio: number = parseInt(entrada[0].split(' ')[1]);
+const [horaInicio, minutoInicio, segundoInicio]: number[] = entrada[1]
+    .split(' : ')
+    .map((time) => parseInt(time));
+const diasFim: number = parseInt(entrada[2].split(' ')[1]);
+const [horaFim, minutoFim, segundoFim]: number[] = entrada[3]
+    .split(' : ')
+    .map((time) => parseInt(time));
 
+const totalSegundosInicio: number = diasInicio * 24 * 60 * 60 + horaInicio * 60 * 60 + minutoInicio * 60 + segundoInicio;
+const totalSegundosFim: number = diasFim * 24 * 60 * 60 + horaFim * 60 * 60 + minutoFim * 60 + segundoFim;
+
+let diferencaSegundos: number = totalSegundosFim - totalSegundosInicio;
+
+const dias: number = Math.floor(diferencaSegundos / (24 * 60 * 60));
+diferencaSegundos %= 24 * 60 * 60;
+const horas: number = Math.floor(diferencaSegundos / (60 * 60));
+diferencaSegundos %= 60 * 60;
+const minutos: number = Math.floor(diferencaSegundos / 60);
+const segundos: number = diferencaSegundos % 60;
+
+const duracaoEvento: string = `${dias} dia(s)\n${horas} hora(s)\n${minutos} minuto(s)\n${segundos} segundo(s)`;
+
+console.log(duracaoEvento);
 
 
 
