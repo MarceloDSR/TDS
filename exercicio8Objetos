@@ -1,0 +1,57 @@
+const produtos: any[] = [];
+const vendas: any[] = [];
+
+
+function cadastrarProduto(nome: string, custo: number, valorVenda: number, ingredientes: string[]): void {
+  const novoProduto = {
+    nome: nome,
+    custo: custo,
+    valorVenda: valorVenda,
+    ingredientes: ingredientes,
+  };
+  produtos.push(novoProduto);
+}
+
+
+function buscarValorPorNome(nome: string): number | undefined {
+  for (let i = 0; i < produtos.length; i++) {
+    if (produtos[i].nome === nome) {
+      return produtos[i].valorVenda;
+    }
+  }
+  return undefined;
+}
+
+
+function realizarVenda(nomePrato: string, nomeCliente: string): void {
+  const venda = {
+    nomePrato: nomePrato,
+    nomeCliente: nomeCliente,
+  };
+  vendas.push(venda);
+}
+
+
+function calcularLucro(): number {
+  let custos = 0;
+  for (let i = 0; i < produtos.length; i++) {
+    custos += produtos[i].custo;
+  }
+
+  let valoresVendas = 0;
+  for (let i = 0; i < vendas.length; i++) {
+    const valorProduto = buscarValorPorNome(vendas[i].nomePrato);
+    if (valorProduto) {
+      valoresVendas += valorProduto;
+    }
+  }
+
+  return valoresVendas - custos;
+}
+
+
+cadastrarProduto("Lasanha", 10, 20, ["Massa", "Molho", "Queijo", "Presunto"]);
+realizarVenda("Lasanha", "João");
+
+const lucroTotal = calcularLucro();
+console.log("Lucro total:", lucroTotal);
