@@ -1,0 +1,51 @@
+type Produto = {
+    nome: string;
+    preco: number;
+    classificacao: "verao" | "inverno" | "banho" | "intimas";
+  };
+  
+  function calcularPrecoComDesconto(produtos: Produto[]): { nome: string; preco: number; classificacao: string; precoComDesconto: number }[] {
+    const produtosComDesconto = produtos.map((produto) => {
+      let desconto = 0;
+  
+      switch (produto.classificacao) {
+        case "verao":
+          desconto = 0.05;
+          break;
+        case "inverno":
+          desconto = 0.1;
+          break;
+        case "banho":
+          desconto = 0.04;
+          break;
+        case "intimas":
+          desconto = 0.07;
+          break;
+        default:
+          desconto = 0;
+          break;
+      }
+  
+      const precoComDesconto = produto.preco * (1 - desconto);
+  
+      return {
+        nome: produto.nome,
+        preco: produto.preco,
+        classificacao: produto.classificacao,
+        precoComDesconto: precoComDesconto,
+      };
+    });
+  
+    return produtosComDesconto;
+  }
+  
+  // Exemplo de uso:
+  const produtos: Produto[] = [
+    { nome: "Camiseta", preco: 30, classificacao: "verao" },
+    { nome: "Casaco", preco: 80, classificacao: "inverno" },
+    { nome: "Biquíni", preco: 50, classificacao: "banho" },
+    { nome: "Cueca", preco: 15, classificacao: "intimas" },
+  ];
+  
+  const produtosComDesconto = calcularPrecoComDesconto(produtos);
+  console.log(produtosComDesconto);
